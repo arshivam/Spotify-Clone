@@ -71,3 +71,45 @@ body{
 .header > * {
     padding: 20px;
 }
+
+.spotify-playlist{
+    padding: 15px;
+}
+
+.card-container{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 30px;
+}
+
+.spotify-playlist .card{
+    width: 208px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #252525;
+    position: relative;
+}
+
+.card > * {
+    padding-top: 10px;
+}
+
+.card img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.play {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px; /* Adjust width as needed */
+    height: 40px; /* Adjust height as needed */
+    background-color: #1ed760;
+    border-radius: 50%;
+    padding: 2px;
+    position: absolute;
+    top: 178px;
+    right: 15px;
+}
