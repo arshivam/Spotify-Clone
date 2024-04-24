@@ -81,6 +81,8 @@ body{
     gap: 10px;
     flex-wrap: wrap;
     margin: 30px;
+    overflow-y: scroll;
+    max-height: 70vh;
 }
 
 .spotify-playlist .card{
@@ -112,4 +114,31 @@ body{
     position: absolute;
     top: 178px;
     right: 15px;
+}
+
+.btn-signup{
+     background-color: #201c1c;
+     color: grey;
+     border: none;
+     font-size: bold;
+     margin: 0 10px;
+     cursor: pointer;
+}
+
+.btn-signup:hover{
+    font-size: 0.90rem;
+    color: white;
+}
+
+.btn-login{
+    border: none;
+    padding: 5px;
+    border-radius: 16px;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.btn-login:hover{
+    font-weight: bold;
 }
