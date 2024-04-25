@@ -22,6 +22,7 @@ body{
 .right {
     width: 75vw;
     margin: 16px 0;
+    position: relative;
 }
 
 .home ul li {
@@ -141,4 +142,13 @@ body{
 
 .btn-login:hover{
     font-weight: bold;
+}
+
+.mediaPlayer{
+    background-color: #1ed760;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 5px;
 }
