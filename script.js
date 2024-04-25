@@ -1,3 +1,5 @@
+let currentMusic = new Audio(" ")
+
 async function getSongs (){
     let a = await fetch("http://127.0.0.1:5500/songs/");
     let response = await a.text()
@@ -14,6 +16,11 @@ async function getSongs (){
     }
     return songs;
 }
+ const playMusic = (track) =>{
+    currentMusic.src = `/songs/${track}`
+    currentMusic.play()
+
+ }
 
 async function main(){
     //Get the list of all available songs
@@ -21,22 +28,28 @@ async function main(){
     // console.log(songs);
 
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
-    console.log(songUL);
     for (const song of songs) {
         songUL.innerHTML = songUL.innerHTML + ` <li>
         <img class="invert" src="assets/music.svg" alt="music">
-        <div>
+        <div class="info">
             <div>${song.replaceAll("%20", " ")}</div>
             <div>Shivam</div>
         </div>
         <div class="playNow">
             <span>Play Now</span>
-            <img class="invert" src="assets/play.svg" alt="playnow">
+            <img  src="assets/play.svg" alt="playnow">
         </div>
         
     </li> `
         
     }
+
+    Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(e =>{
+         e.addEventListener("click", element =>{
+            playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim())
+        })
+        
+    })
     //Play the song
     // var audio = new Audio(songs[0])
     // audio.play()
