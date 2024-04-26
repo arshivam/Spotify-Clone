@@ -1,4 +1,4 @@
-let currentMusic = new Audio(" ")
+let currentSong = new Audio()
 
 async function getSongs (){
     let a = await fetch("http://127.0.0.1:5500/songs/");
@@ -16,16 +16,22 @@ async function getSongs (){
     }
     return songs;
 }
- const playMusic = (track) =>{
-    currentMusic.src = `/songs/${track}`
-    currentMusic.play()
+ const playMusic = (track, pause=false) =>{
+    currentSong.src = `/songs/${track}`
+    if(!pause){
+        currentSong.play();
+        play.src = "./assets/pause.svg"
+    }
+    document.querySelector(".songinfo").innerHTML =  decodeURI(track);
+    document.querySelector(".songMin").innerHTML =  "00:00 / 00:00";  
 
  }
 
 async function main(){
+    
     //Get the list of all available songs
     let songs = await getSongs();
-    // console.log(songs);
+   playMusic(songs[0], true)
 
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
     for (const song of songs) {
@@ -50,14 +56,29 @@ async function main(){
         })
         
     })
-    //Play the song
-    // var audio = new Audio(songs[0])
-    // audio.play()
-    // audio.addEventListener("loadeddata", () => {
-    //     // let duration = audio.duration;
-    //     console.log(audio.duration, audio.currentSrc);
-    //     // The duration variable now holds the duration (in seconds) of the audio clip
-    //   });
+
+    //Play button listerner
+    play.addEventListener("click",() => {
+    if(currentSong.paused){
+        currentSong.play()
+        play.src = "./assets/pause.svg"
+    }else{
+        currentSong.pause()
+        play.src = "./assets/play.svg"
+    }
+    })
+
+    //Added duration for the songs
+    function secondsToMinutes(seconds) {
+        var minutes = Math.floor(seconds / 60);
+        var remainingSeconds = seconds % 60;
+        return (minutes < 10 ? '0' : '') + minutes + ':' + (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
+    }
+
+    currentSong.addEventListener("timeupdate",()=>{
+        document.querySelector(".songMin").innerHTML =  `${secondsToMinutes(Math.floor(currentSong.currentTime))} / ${secondsToMinutes(Math.floor(currentSong.duration))}`
+    })
+
 }
 
 main()
