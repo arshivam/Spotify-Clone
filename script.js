@@ -77,7 +77,17 @@ async function main(){
 
     currentSong.addEventListener("timeupdate",()=>{
         document.querySelector(".songMin").innerHTML =  `${secondsToMinutes(Math.floor(currentSong.currentTime))} / ${secondsToMinutes(Math.floor(currentSong.duration))}`
+         //seeker movement
+        document.querySelector(".circle").style.left = (Math.floor(currentSong.currentTime)/Math.floor(currentSong.duration) * 100 + "%")
     })
+
+    document.querySelector(".seeker").addEventListener("click" ,(e)=>{
+        let percent = (e.offsetX/e.target.getBoundingClientRect().width) * 100 
+        document.querySelector(".circle").style.left =  percent + "%"
+        currentSong.currentTime = ((Math.floor(currentSong.duration))* percent)/100
+    })
+
+   
 
 }
 

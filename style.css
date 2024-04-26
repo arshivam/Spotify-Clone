@@ -203,8 +203,7 @@ body{
     position: relative;
     top: -5px;
     left: 0%;
-    /* transition: all 2s;
-    left: 100%; */
+    transition: all 0.5s;
 }
 
 .mediaFlex{
