@@ -1,4 +1,5 @@
 let currentSong = new Audio()
+let songs;
 
 async function getSongs (){
     let a = await fetch("http://127.0.0.1:5500/songs/");
@@ -30,20 +31,22 @@ async function getSongs (){
 async function main(){
     
     //Get the list of all available songs
-    let songs = await getSongs();
+     songs = await getSongs();
    playMusic(songs[0], true)
 
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
     for (const song of songs) {
         songUL.innerHTML = songUL.innerHTML + ` <li>
+        <div class="sglg">
         <img class="invert" src="assets/music.svg" alt="music">
         <div class="info">
             <div>${song.replaceAll("%20", " ")}</div>
             <div>Shivam</div>
         </div>
+        </div>
         <div class="playNow">
             <span>Play Now</span>
-            <img  src="assets/play.svg" alt="playnow">
+            <img  class="invert" src="assets/play.svg" alt="playnow">
         </div>
         
     </li> `
@@ -87,7 +90,42 @@ async function main(){
         currentSong.currentTime = ((Math.floor(currentSong.duration))* percent)/100
     })
 
-   
+    //Event listner for volume increase decrease
+
+   document.getElementById("range").addEventListener("change",(e)=>{
+    let volume = e.target.value;
+    currentSong.volume = parseInt(volume)/100
+   })
+
+   //event listener for hamburger menu
+   document.querySelector(".hamburger").addEventListener("click",()=>{
+    document.querySelector(".left").style.display = "block";
+    document.querySelector(".left").style.left= "0";
+   })
+
+   document.querySelector(".closebtn").addEventListener("click",()=>{
+    document.querySelector(".left").style.left = "-100%";
+   })
+
+   //Event listener previous and next btn
+   previous.addEventListener("click",()=>{
+    currentSong.pause()
+    let indexOfSong = songs.indexOf(currentSong.src.split("songs/")[1]);
+    if (indexOfSong - 1 >= 0) {
+        console.log("ss");
+        playMusic(songs[indexOfSong - 1])
+    }
+   })
+
+   next.addEventListener("click",()=>{
+    currentSong.pause()
+    let indexOfSong = songs.indexOf(currentSong.src.split("songs/")[1]);
+    if (indexOfSong + 1 < songs.length) {
+        playMusic(songs[indexOfSong + 1])
+    }
+   })
+
+
 
 }
 
